@@ -6,7 +6,7 @@ features_matched <- grep(".*mean.*|.*std.*", features[,2])
 features_matched_names <- features[features_matched,2]
 
 # Extract the data from 'activity_labels.txt' and create a lookup variable with the data. The lookup table is required to convert the activity levels to activity names
-activity_labels = read.table("UCI HAR Dataset/activity_labels.txt")
+activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")
 lookup_activity <- setNames(activity_labels[,1],activity_labels[,2])
 
 # Load the training data set
@@ -45,4 +45,5 @@ combined_data$activity <- names(lookup_activity)[match(combined_data$activity , 
 total_cols <- ncol(combined_data)
 tidy <- aggregate(combined_data[,3:total_cols], by = list(subject = combined_data$subject,activity = combined_data$activity), mean)
 
+# Write the data to text file
 write.table(tidy, "tidy.txt", row.names = FALSE)
